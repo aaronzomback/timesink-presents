@@ -1,14 +1,14 @@
 import type { Adapter } from "next-auth/adapters";
 import { and, eq } from "drizzle-orm";
-import { type MySql2Database } from "drizzle-orm/mysql2";
 import { init } from "@paralleldrive/cuid2";
 import { accounts, sessions, users, verificationTokens } from "@/db/auth";
+import type { PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless";
 
 const createId = init({
   length: 24,
 });
 
-export function DrizzleAdapter(db: MySql2Database): Adapter {
+export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
   return {
     async createUser(userData) {
       await db.insert(users).values({
